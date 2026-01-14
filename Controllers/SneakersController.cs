@@ -20,9 +20,16 @@ namespace ecommerce_csharp.Controllers
         }
 
         // GET: Sneakers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string gender)
         {
-            return View(await _context.Sneakers.ToListAsync());
+            var sneakers = _context.Sneakers.AsQueryable();
+
+            if (!string.IsNullOrEmpty(gender))
+            {
+                sneakers = sneakers.Where(s => s.Gender == gender);
+            }
+
+            return View(await sneakers.ToListAsync());
         }
 
         // GET: Sneakers/Details/5
@@ -54,14 +61,31 @@ namespace ecommerce_csharp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Brand,Price,StockQuantity,ImageUrl,Gender")] Sneaker sneaker)
+        public async Task<IActionResult> Create(Sneaker sneaker, IFormFile imageFile)
         {
             if (ModelState.IsValid)
             {
+                if (imageFile != null && imageFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
+                    Directory.CreateDirectory(uploadsFolder);
+
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + imageFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await imageFile.CopyToAsync(fileStream);
+                    }
+
+                    sneaker.ImageUrl = "/images/" + uniqueFileName;
+                }
+
                 _context.Add(sneaker);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(sneaker);
         }
 
