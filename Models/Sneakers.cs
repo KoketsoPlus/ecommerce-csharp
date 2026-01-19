@@ -17,7 +17,7 @@ namespace ecommerce_csharp.Models
             [Range(0.01, 100000)]
             public decimal Price { get; set; }
 
-            public int StockQuantity { get; set; }
+            public int StockQuantity { dotnet runget; set; }
 
             public string? ImageUrl { get; set; }
             public required string Gender { get; set; }
