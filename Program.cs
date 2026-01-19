@@ -1,9 +1,13 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using ecommerce_csharp.Data;
-using Microsoft.AspNetCore.Identity;
+using ecommerce_csharp.Services;  //Using the system of Cart Services 
+using Microsoft.AspNetCore.Identity;  
 using Microsoft.EntityFrameworkCore;
-using System.Globalization;
-using Microsoft.AspNetCore.Localization;
+using System.Globalization;   //Price
+using Microsoft.AspNetCore.Localization;  //price 
 using Microsoft.AspNetCore.StaticFiles;
+//using static System.Formats.Asn1.AsnWriter;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,9 +19,20 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddRazorPages(); //This was added for the pages in terms of Admin
+
+builder.Services.AddSession();   //For cart
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<CartService>();  // For cart
+
 var app = builder.Build();
+
+//This code is created for the price
 
 var supportedCultures = new[] { new CultureInfo("en-US") };
 
@@ -41,6 +56,7 @@ else
 }
 
 app.UseHttpsRedirection();
+//app.UseStaticFiles();
 
 //Aavif pictures
 var provider = new FileExtensionContentTypeProvider();
@@ -52,9 +68,14 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 
+
+
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseSession();  // Very important for cart and used when you want to tell the app how long will it store the cart information
+
+app.UseAuthorization();  //This works more when you want to tell the app what access users have in what pages
+
 
 app.MapControllerRoute(
     name: "default",

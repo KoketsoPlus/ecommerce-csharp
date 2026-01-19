@@ -5,7 +5,7 @@
 namespace ecommerce_csharp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Newaddings : Migration
+    public partial class NewCartController : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

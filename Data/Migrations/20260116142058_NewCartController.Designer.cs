@@ -12,8 +12,8 @@ using ecommerce_csharp.Data;
 namespace ecommerce_csharp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260114105655_newaddings")]
-    partial class Newaddings
+    [Migration("20260116142058_NewCartController")]
+    partial class NewCartController
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
