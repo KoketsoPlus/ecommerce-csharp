@@ -2,7 +2,323 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="landing-container">
+    <!-- Header Section -->
+    <section class="hero-section d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-white">
+
+                    <span class="hero-eyebrow">NEW COLLECTION 2024</span>
+
+                    <h1 class="hero-heading">
+                        STEP INTO<br />STYLE
+                    </h1>
+
+                    <p class="hero-subtext">
+                        Discover the latest sneakers designed for comfort and style.
+                        Elevate your every step.
+                    </p>
+
+                    <a asp-controller="Product"
+                       asp-action="Popular"
+                       class="btn btn-hero-primary mt-3">
+                        SHOP NOW
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Women Section -->
+    <section id="women" class="category-section py-5">
+        <div class="container">
+
+            <h2 class="section-title mb-5">For Women</h2>
+
+            <div class="row g-4">
+                @foreach (var product in new[]
+                                {
+                                new { Name = "Rosé Runner", Price = "R1,899", Img = "/images/women-1.jpg", Badge="New" },
+                                new { Name = "Luxe Rose Gold", Price = "R2,499", Img = "/images/women-2.jpg", Badge="" },
+                                new { Name = "Nude Essential", Price = "R1,699", Img = "/images/women-3.jpg", Badge="" },
+                                new { Name = "Sky Blue Runner", Price = "R1,999", Img = "/images/women-4.jpg", Badge="" }
+                                })
+                {
+                    <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="product-card">
+                            @if (!string.IsNullOrEmpty(product.Badge))
+                            {
+                                <span class="product-badge">@product.Badge</span>
+                            }
+
+                            <img src="@product.Img" alt="@product.Name" />
+
+                            <div class="product-info">
+                                <h6>@product.Name</h6>
+                                <p class="price">@product.Price</p>
+
+                                <div class="d-flex gap-2">
+                                    <a asp-controller="Cart" asp-action="Add"
+                                       class="btn btn-outline-dark btn-sm flex-fill">
+                                        Add to Cart
+                                    </a>
+                                    <button class="btn btn-dark btn-sm">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- Men's Section -->
+    <section id="women" class="women-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #333; font-size: clamp(2rem, 5vw, 3.5rem);">
+                    For Men
+                </h2>
+                <div class="w-25 mx-auto border-bottom border-primary border-3"></div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Rosé Runner -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <div class="position-absolute top-0 end-0 badge bg-primary px-3 py-2 m-3 fw-semibold">
+                            New
+                        </div>
+                        <img src="https://via.placeholder.com/300x260/ff69b4/ffffff?text=Rosé+Runner"
+                             class="card-img-top" alt="Rosé Runner" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Rosé Runner</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R1,899</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Luxe Gold -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <img src="https://via.placeholder.com/300x260/d4af37/ffffff?text=Luxe+Gold"
+                             class="card-img-top" alt="Luxe Gold" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Luxe Gold</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R2,499</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nude Essential -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <img src="https://via.placeholder.com/300x260/f5deb3/000000?text=Nude+Essential"
+                             class="card-img-top" alt="Nude Essential" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Nude Essential</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R1,699</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sky Blue Runner -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <img src="https://via.placeholder.com/300x260/87ceeb/ffffff?text=Sky+Blue"
+                             class="card-img-top" alt="Sky Blue Runner" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Sky Blue Runner</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R1,999</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Women Section -->
+    <section id="women" class="women-section py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3" style="color: #333; font-size: clamp(2rem, 5vw, 3.5rem);">
+                    For Kids
+                </h2>
+                <div class="w-25 mx-auto border-bottom border-primary border-3"></div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Rosé Runner -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <div class="position-absolute top-0 end-0 badge bg-primary px-3 py-2 m-3 fw-semibold">
+                            New
+                        </div>
+                        <img src="https://via.placeholder.com/300x260/ff69b4/ffffff?text=Rosé+Runner"
+                             class="card-img-top" alt="Rosé Runner" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Rosé Runner</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R1,899</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Luxe Gold -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <img src="https://via.placeholder.com/300x260/d4af37/ffffff?text=Luxe+Gold"
+                             class="card-img-top" alt="Luxe Gold" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Luxe Gold</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R2,499</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nude Essential -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <img src="https://via.placeholder.com/300x260/f5deb3/000000?text=Nude+Essential"
+                             class="card-img-top" alt="Nude Essential" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Nude Essential</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R1,699</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sky Blue Runner -->
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="card h-100 product-card border-0 shadow-sm position-relative overflow-hidden">
+                        <img src="https://via.placeholder.com/300x260/87ceeb/ffffff?text=Sky+Blue"
+                             class="card-img-top" alt="Sky Blue Runner" loading="lazy">
+                        <div class="card-body d-flex flex-column p-4">
+                            <h5 class="card-title fw-semibold mb-3 flex-grow-1">Sky Blue Runner</h5>
+                            <div class="mt-auto">
+                                <p class="text-primary fw-bold fs-4 mb-2">R1,999</p>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-primary btn-sm flex-fill">Add to Cart</button>
+                                    <button class="btn btn-primary btn-sm px-3">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Features Section -->
+    <section class="features-section py-5">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-item">
+                        <i class="fas fa-shipping-fast fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold mb-2">Free Shipping</h4>
+                        <p class="text-muted">Orders over R500 ship free within South Africa</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold mb-2">30 Day Returns</h4>
+                        <p class="text-muted">Not satisfied? Return for free within 30 days</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="feature-item">
+                        <i class="fas fa-credit-card fa-3x text-primary mb-3"></i>
+                        <h4 class="fw-bold mb-2">Secure Payment</h4>
+                        <p class="text-muted">Shop safely with trusted payment methods</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </div>
+
+@section Scripts {
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+}
